@@ -1,0 +1,87 @@
+#include <stdio.h>
+
+int main ()
+{
+    int a,b,c; // koefi
+    int n; // matrix size
+    
+    printf("Введите коэффиценты многочлена, а затем порядок матрицы\n");
+    scanf("%d",&a);
+    scanf("%d",&b);
+    scanf("%d",&c);
+    
+    scanf("%d",&n);
+    
+    printf("Введите матрицу\n");
+    int matrix[n][n];
+    
+    for (int i =0;i<n;i++){
+        for (int j =0;j<n;j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    
+    int E[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            E[i][j] = (i == j) ? 1 : 0;
+        }
+    }
+    
+    int square_matrix[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            square_matrix[i][j] = matrix[i][j];
+        }
+    }
+
+    int result[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < n; k++) {
+                result[i][j] += matrix[i][k] * matrix[k][j];
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            matrix[i][j] = result[i][j];
+        }
+    }
+    
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            square_matrix[i][j] *= a;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            matrix[i][j] *= b;
+        }
+    }
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            square_matrix[i][j] += matrix[i][j];
+        }
+    }
+   
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            E[i][j] *= c;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            square_matrix[i][j] += E[i][j];
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
